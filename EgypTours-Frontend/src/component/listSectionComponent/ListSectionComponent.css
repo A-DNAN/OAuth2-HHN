@@ -1,0 +1,201 @@
+/**
+ *  Copyright (C) 2021  the original author or authors.
+ *
+ * 		This program is free software: you can redistribute it and/or modify
+ * 		it under the terms of the GNU General Public License as published by
+ * 		the Free Software Foundation, either version 3 of the License, or
+ * 		(at your option) any later version.
+ *
+ * 		This program is distributed in the hope that it will be useful,
+ * 		but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * 		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * 		GNU General Public License for more details.
+ *
+ * 		You should have received a copy of the GNU General Public License
+ * 		along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+
+/**
+ * @author ADNAN <ADNAN.E@TUTANOTA.DE>
+ */
+
+.list {
+  padding: 4rem;
+  background: #fff;
+}
+
+.list-input-div {
+  position: relative;
+  display: flex;
+  /* background-color: red; */
+  
+}
+.list-input {
+  flex-basis: 40%;
+  position: relative;
+  padding: 15px ;
+  width: 15em;
+  height: 2.9em;
+  border-radius: 10px;
+  display: list-item;
+  margin: auto;
+  margin-bottom: 1em;
+  outline: none;
+  border: none;
+  font-size: 18px;
+  background-color: black;
+  color: white;
+}
+.list-input:hover {
+  /* padding: 10px 60px; */
+  /* width: 20em; */
+  box-shadow: 1px 1px 10px 0px rgb(0, 0, 0);
+  /* border: 1px solid #fff; */
+}
+.fa-arrow-circle-left{
+  cursor: pointer;
+  margin-left: 0.5em;
+}
+.fa-arrow-circle-right{
+  cursor: pointer;
+}
+
+.pagination-div{
+  color:black;
+  font-size: 2.5em;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+#icon-disable{
+color: darkgray;
+cursor: default;
+}
+
+h1 {
+  text-align: center;
+}
+
+.list__container {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  /* max-width: 1120px; */
+  /* width: 100%; */
+  margin: 0 auto;
+}
+
+.list__wrapper {
+  position: relative;
+  margin: 50px 0 45px;
+}
+
+.list__items {
+  margin-bottom: 24px;
+  margin-left: 12%;
+  margin-right: 12%;
+}
+
+.list__item {
+  display: flex;
+  flex: 1;
+  margin: 0 1rem;
+  border-radius: 10px;
+}
+
+.list__item__link {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  box-shadow: 0 6px 20px rgba(56, 125, 255, 0.17);
+  -webkit-filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
+  filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
+  border-radius: 10px;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.list__item__pic-wrap {
+  position: relative;
+  width: 100%;
+  padding-top: 67%;
+  overflow: hidden;
+}
+
+.fade-img {
+  animation-name: fade-img;
+  animation-duration: 2s;
+}
+
+.list__item__pic-wrap::after {
+  content: attr(data-category);
+  position: absolute;
+  bottom: 0;
+  margin-left: 10px;
+  padding: 6px 8px;
+  max-width: calc((100%) - 60px);
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  background-color: #1f98f4;
+  box-sizing: border-box;
+}
+
+.list__item__img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  transition: all 0.2s linear;
+}
+
+.list__item__img:hover {
+  transform: scale(1.1);
+}
+
+.list__item__info {
+  padding: 20px;
+}
+
+.list__item__text {
+  color: #252e48;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+@media only screen and (min-width: 1200px) {
+  .content__blog__container {
+    width: 84%;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .list__items {
+    display: flex;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .list__item {
+    margin-bottom: 2rem;
+  }
+  .list__items {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
+/* @media only screen and (max-width: 700px) {
+  .list-input-div {
+
+    display: block;
+    margin-bottom: 1em;
+  }
+} */

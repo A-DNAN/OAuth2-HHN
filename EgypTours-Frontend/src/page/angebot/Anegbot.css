@@ -1,0 +1,74 @@
+/**
+ *  Copyright (C) 2021  the original author or authors.
+ *
+ * 		This program is free software: you can redistribute it and/or modify
+ * 		it under the terms of the GNU General Public License as published by
+ * 		the Free Software Foundation, either version 3 of the License, or
+ * 		(at your option) any later version.
+ *
+ * 		This program is distributed in the hope that it will be useful,
+ * 		but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * 		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * 		GNU General Public License for more details.
+ *
+ * 		You should have received a copy of the GNU General Public License
+ * 		along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+ .Window {
+  background: url('../../images/img-9.jpg') center center/cover no-repeat; 
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0,);
+  object-fit: contain;
+}
+
+.OfferView {  
+  position:absolute;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 30px 20px 20px 20px;
+  height: 75vh;
+  width: 50%;    
+}
+
+.TabList{
+  margin-bottom: 20px;
+  background-color: rgba(238, 226, 226, 0.4);
+}
+
+.website{
+    color: blue;
+}
+
+.sliderBox{
+    height: 50vh;
+}
+
+.slider{
+    position: center;
+    background-color: rgb(61, 131, 63);
+}
+
+.sliderimg{
+    padding: 20px;
+    max-width: 500px;
+    height: auto;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: auto;
+    display: block;
+}
+
+#responsive{
+  width: 50%;
+  height: auto;
+}
+
+@media screen and (max-width: 700px) {
+  .OfferView, .sliderBackground {width: 22em;}
+}
