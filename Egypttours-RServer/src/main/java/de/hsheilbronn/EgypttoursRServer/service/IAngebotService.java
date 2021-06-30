@@ -20,6 +20,7 @@ package de.hsheilbronn.EgypttoursRServer.service;
 import de.hsheilbronn.EgypttoursRServer.exception.NotFoundException;
 import de.hsheilbronn.EgypttoursRServer.exception.OperationNotAllowedException;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
 
 /**
  * @author ADNAN <ADNAN.E@TUTANOTA.DE>
@@ -27,7 +28,9 @@ import org.springframework.data.domain.Page;
 public interface IAngebotService {
 
 
-    public Page<Object> findAll(Integer page, Integer size) throws NotFoundException;
-    public Page<Object> filterByName(Integer page, Integer size,String nameFilter) throws NotFoundException;
-    public Object findById(long id,String type) throws NotFoundException, OperationNotAllowedException;
+     Page<Object> findAll(Integer page, Integer size) throws NotFoundException;
+     Page<Object> filterByName(Integer page, Integer size,String nameFilter) throws NotFoundException;
+     Object findById(long id,String type) throws NotFoundException, OperationNotAllowedException;
+     String addAngebotReview(long angebotId,String angebotType,String description,double rating,String createdAt,Authentication authentication);
+     void updateAngebotFavorite(long angebotId,Boolean preferred, String angebotType,Authentication authentication);
 }

@@ -23,6 +23,15 @@ import SignUp from './page/signup/SignUp';
 import Angebot from './page/angebot/Angebot';
 import { BrowserRouter , Switch, Route} from 'react-router-dom';
 import Offer from './page/offer/Offer';
+import AddOfferComponent from './page/addOffer/AddOfferComponent';
+import Terms from './page/terms/Terms';
+import AddHotelComponent from './page/addOffer/hotelComponent/AddHotelComponent';
+import AddMuseumComponent from './page/addOffer/museumComponent/AddMuseumComponent';
+import Profile from './page/profile/profile';
+import AddRestaurantComponent from './page/addOffer/restaurantComponent/AddRestaurantComponent';
+import AddAncientEgyptianSiteComponent from './page/addOffer/ancientEgyptianSiteComponent/AddAncientEgyptianSiteComponent';
+// import UserService from './service/UserService'
+
 
 
 /**
@@ -35,15 +44,28 @@ class App extends Component{
     super();
 
     this.state = {
-      
        access_token: '',
        id_token:'',
        refresh_token:'',
        loggenIn: false,
-       user: {}
+       loggedUser: {}
     }
   }
 
+
+//  componentDidMount(){
+    
+//    UserService.getUser().then(response => {
+//     this.setState({
+//     loggedUser: response.data
+//     })
+//     localStorage.setItem("pictureUrl",this.state.loggedUser.pictureUrl)
+//     // console.log(this.state.user);
+//     }).catch(error => {
+//       console.log(error);
+//   })
+
+//   }
 
 render() {
   return (
@@ -52,28 +74,59 @@ render() {
         {/* <Navbar /> */}
         <Switch>
           <Route path='/' exact component={Home} />
+         
+          {!localStorage.getItem("access_token") &&
           <Route path='/join'  
           
           render = { props => (
             <SignUp  {...props}/> 
           )}
-
           />
-          <Route path='/trips' component={Angebot} />
-          <Route path='/offer' component={Offer} />
-          <Route path='/login' 
+           }
+        {localStorage.getItem("access_token") &&
+          <Route path='/trips' exact component={Angebot} />
+        }
+        {localStorage.getItem("access_token") &&
+          <Route path='/offer' exact component={Offer} />
+         }
+          {localStorage.getItem("access_token") &&
+          <Route path='/new_offer' exact  component={AddOfferComponent} />
+        }
+        {localStorage.getItem("access_token") &&
+          <Route path='/new_hotel' exact component={AddHotelComponent} />
+        }
+        {localStorage.getItem("access_token") &&
+          <Route path='/new_museum' exact component={AddMuseumComponent} />
+        }
+        {localStorage.getItem("access_token") &&
+          <Route path='/new_restaurant' exact component={AddRestaurantComponent} />
+        }
+        {localStorage.getItem("access_token") &&
+          <Route path='/new_aegs' exact component={AddAncientEgyptianSiteComponent} />
+        }
+        {localStorage.getItem("access_token") &&
+          <Route path='/user' exact component={Profile} />
+        }
+      
+          
+          {/* component={profile} /> */}
+          <Route path='/terms' exact component={Terms} />
+          <Route path='/login' exact
           render = { () => {
             window.location.href = 
             `${process.env.REACT_APP_AS_AUTHORIZE_PATH}?response_type=code&client_id=client&scope=openid&redirect_uri=${process.env.REACT_APP_REDIRECT_URL}`
           }
           } />
-          <Route path='/authorized' 
+          <Route path='/authorized' exact
           
           render = { props => (
             <Authorized  {...props}/> 
           )}
           />
-
+          
+          {/* 404: to be edited later */}
+        <Route path='/:other' component={Home}></Route>
+        
         </Switch>
     </BrowserRouter>
     </>

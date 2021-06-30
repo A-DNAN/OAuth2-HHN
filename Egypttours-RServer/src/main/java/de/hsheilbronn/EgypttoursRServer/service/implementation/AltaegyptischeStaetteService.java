@@ -18,16 +18,26 @@
 package de.hsheilbronn.EgypttoursRServer.service.implementation;
 
 import de.hsheilbronn.EgypttoursRServer.dao.AltaegyptischeStaetteRepository;
+import de.hsheilbronn.EgypttoursRServer.dto.AltaegyptischeStaetteDTO;
+import de.hsheilbronn.EgypttoursRServer.dto.MuseumDTO;
 import de.hsheilbronn.EgypttoursRServer.exception.NotFoundException;
 import de.hsheilbronn.EgypttoursRServer.exception.OperationNotAllowedException;
+import de.hsheilbronn.EgypttoursRServer.mapper.AltaegyptischeStaetteMapper;
 import de.hsheilbronn.EgypttoursRServer.model.AltaegyptischeStaette;
+import de.hsheilbronn.EgypttoursRServer.model.Museum;
+import de.hsheilbronn.EgypttoursRServer.model.user.User;
 import de.hsheilbronn.EgypttoursRServer.service.IAltaegyptischeStaetteService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +51,9 @@ public class AltaegyptischeStaetteService implements IAltaegyptischeStaetteServi
     private final Logger logger = LoggerFactory.getLogger(AltaegyptischeStaetteService.class);
 
     @Autowired
+    AltaegyptischeStaetteMapper altaegyptischeStaetteMapper;
+
+    @Autowired
     private AltaegyptischeStaetteRepository altaegyptischeStaetteRepository;
 
     /**
@@ -49,21 +62,44 @@ public class AltaegyptischeStaetteService implements IAltaegyptischeStaetteServi
      * @throws NotFoundException
      */
     @Override
-    public List<AltaegyptischeStaette> findAll() throws NotFoundException {
-        List<AltaegyptischeStaette> altaegyptischeStaettes = altaegyptischeStaetteRepository.findAll();
-        if(altaegyptischeStaettes == null || altaegyptischeStaettes.isEmpty())
+    public Page<AltaegyptischeStaetteDTO> findAll(Integer page, Integer size) throws NotFoundException {
+        List<AltaegyptischeStaette> AltaegyptischeStaettes = altaegyptischeStaetteRepository.findAll();
+        List<AltaegyptischeStaetteDTO> AltaegyptischeStaetteDTOs = new ArrayList<>();
+        AltaegyptischeStaettes.stream().parallel().forEach(museum -> {
+            AltaegyptischeStaetteDTOs.add(altaegyptischeStaetteMapper.toDTO(museum));
+        });
+
+        Page<AltaegyptischeStaetteDTO> angebots = new PageImpl<AltaegyptischeStaetteDTO>(
+                AltaegyptischeStaetteDTOs,
+                PageRequest.of(page==null || page < 0?0:page,
+                        size==null || size <= 1?9:size),AltaegyptischeStaetteDTOs.size()
+        );
+
+        if(AltaegyptischeStaettes == null || AltaegyptischeStaettes.isEmpty())
             throw new NotFoundException("No Element Found");
 
-        return altaegyptischeStaettes;
+        return angebots;
     }
 
     /**
-     * @param altaegyptischeStaette
+     * @param altaegyptischeStaetteDTO
      * @throws SQLException
      */
     @Override
-    public void save(AltaegyptischeStaette altaegyptischeStaette) throws SQLException {
+    public void save(AltaegyptischeStaetteDTO altaegyptischeStaetteDTO, Authentication authentication) throws SQLException {
 
+        if(altaegyptischeStaetteDTO == null)
+        {
+            throw new OperationNotAllowedException("AltaegyptischeStaette is Required");
+        }
+
+        altaegyptischeStaetteDTO.setId(null);
+//        eRequiredAttributesCheck(altaegyptischeStaetteDTO);
+        AltaegyptischeStaette altaegyptischeStaette = altaegyptischeStaetteMapper.toAltaegyptischeStaette(altaegyptischeStaetteDTO);
+        User user = new User();
+        user.setUsername(authentication.getName());
+        altaegyptischeStaette.setUser(user);
+        altaegyptischeStaetteRepository.save(altaegyptischeStaette);
     }
 
     /**

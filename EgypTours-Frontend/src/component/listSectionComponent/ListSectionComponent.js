@@ -20,6 +20,7 @@ import React, { Component } from 'react'
 import './ListSectionComponent.css';
 import ListItemComponent from './ListItemComponent';
 import AngebotService from '../../service/AngebotService'
+import AuthService from '../../service/AuthService';
 
 
 
@@ -57,6 +58,8 @@ export class ListSectionComponent extends Component {
       })
       }).catch(error => {
         // console.log(error);
+        if(error.response?.status === 401){
+          AuthService.refreshTheToken();}
     });
 
     window.scrollTo(0,0);
@@ -111,6 +114,8 @@ export class ListSectionComponent extends Component {
         totalPages: 0,
         page: 0,
     })
+    if(error.response?.status === 401){
+    AuthService.refreshTheToken();}
       // console.log(error);
   })
    :
@@ -126,6 +131,8 @@ export class ListSectionComponent extends Component {
         totalPages: 0,
         page: 0,
   })
+  if(error.response?.status === 401){
+    AuthService.refreshTheToken();}
     // console.log(error);
 })
 
@@ -152,6 +159,8 @@ return () => {
         totalPages: 0,
         page: 0,
     })  // console.log(error);
+    if(error.response.status === 401){
+      AuthService.refreshTheToken();}
    })
   window.scrollTo(0,0);
     // console.log(event.target.value)
@@ -191,41 +200,40 @@ render() {
 
 {this.state.angebote !=='' && this.state.angebote.slice(0,3).map(element => 
 
-  <ListItemComponent key={element.id}
-   src={element.pictureUrls[1].path}
-   label={element.art}
-   text= {element.name}
-   price= {element.geldBetrag}
-   path={'/offer?uuid='+element.id+'&type='+element.typeName} 
- />
-
-   )}
+<ListItemComponent key={element.id}  aId={element.id} aType={element.typeName} preferred={element.preferredBy}
+src={element.pictureUrls[0]!==undefined?element.pictureUrls[0].path:""}
+label={element.art !==undefined?element.art:element.typeName!==undefined?element.typeName:""}
+text= {element.name !==undefined?element.name:""}
+price= {element.geldBetrag !==undefined?element.geldBetrag:""}
+path={'/offer?uuid='+element.id+'&type='+element.typeName} 
+/>
+)}
               </ul>
 
                <ul className='list__items'>
              
  {this.state.angebote !=='' && this.state.angebote.slice(3,6).map(element => 
- <ListItemComponent key={element.id}
- src={element.pictureUrls[1].path}
- label={element.art}
- text= {element.name}
- price= {element.geldBetrag}
+ <ListItemComponent key={element.id}  aId={element.id} aType={element.typeName} preferred={element.preferredBy}
+ src={element.pictureUrls[0]!==undefined?element.pictureUrls[0].path:""}
+ label={element.art !==undefined?element.art:element.typeName!==undefined?element.typeName:""}
+ text= {element.name !==undefined?element.name:""}
+ price= {element.geldBetrag !==undefined?element.geldBetrag:""}
  path={'/offer?uuid='+element.id+'&type='+element.typeName} 
  />
-   )}
+ )}
               </ul>
 
               <ul className='list__items'>
 
 {this.state.angebote !=='' && this.state.angebote.slice(6).map(element => 
- <ListItemComponent key={element.id}
-   src={element.pictureUrls[1].path}
-   label={element.art}
-   text= {element.name}
-   price= {element.geldBetrag}
-   path={'/offer?uuid='+element.id+'&type='+element.typeName} 
- />
-   )}
+  <ListItemComponent key={element.id}  aId={element.id} aType={element.typeName} preferred={element.preferredBy}
+src={element.pictureUrls[0]!==undefined?element.pictureUrls[0].path:""}
+label={element.art !==undefined?element.art:element.typeName!==undefined?element.typeName:""}
+text= {element.name !==undefined?element.name:""}
+price= {element.geldBetrag !==undefined?element.geldBetrag:""}
+path={'/offer?uuid='+element.id+'&type='+element.typeName} 
+/>
+)}
               </ul>
           </div>
         </div>

@@ -17,7 +17,17 @@
 
 package de.hsheilbronn.EgypttoursRServer.controller;
 
+import de.hsheilbronn.EgypttoursRServer.dto.UserDTO;
+import de.hsheilbronn.EgypttoursRServer.exception.NotFoundException;
+import de.hsheilbronn.EgypttoursRServer.service.IUserService;
+import de.hsheilbronn.EgypttoursRServer.service.implementation.AngebotService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  * @author ADNAN <ADNAN.E@TUTANOTA.DE>
@@ -28,6 +38,32 @@ import org.springframework.web.bind.annotation.*;
 //RequestMethod.GET,RequestMethod.OPTIONS, RequestMethod.DELETE,RequestMethod.PATCH})
 @CrossOrigin(origins = {"https://seserver.se.hs-heilbronn.de:9443","http://localhost:8081"})
 public class UserController {
+
+    @Autowired
+    @Qualifier("UserService")
+    IUserService userService;
+
+    @CrossOrigin(origins = {"*"})
+    @GetMapping("/ik-auth")
+    public Map<String, String> IKAuth(){
+        return AngebotService.getAuthenticatedParams(null,0,"private_Vc8NOKDFqQ3W8oeU0fXN9LJ9Cpo=");
+    }
+
+    @PutMapping("/user")
+    public ResponseEntity<String> userProfileUpdate(@RequestBody UserDTO userDTO, Authentication authentication){
+       userDTO.setUsername(authentication.getName());
+        userService.updateUserProfileByUsername(userDTO);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<Object> userProfile(Authentication authentication){
+        try {
+            return ResponseEntity.ok(userService.findUserProfileByUsername(authentication.getName()));
+        }catch (NotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 
     //  @PostMapping

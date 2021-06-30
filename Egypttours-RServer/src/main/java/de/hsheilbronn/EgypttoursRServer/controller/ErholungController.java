@@ -68,16 +68,17 @@ public class ErholungController {
 
     @PostMapping("/add")
     public ResponseEntity<String> add(Authentication authentication,
-            @RequestBody(required = true) Erholung erholung
+            @RequestBody(required = true) ErholungDTO erholungDTO
     ){
         try {
-         erholungService.save(erholung, authentication);
+         erholungService.save(erholungDTO, authentication);
          return ResponseEntity.status(HttpStatus.CREATED).build();
         }catch (SQLException e){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Please try again later");
         }catch (OperationNotAllowedException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }catch (Exception e){
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Please try again later");
         }
     }

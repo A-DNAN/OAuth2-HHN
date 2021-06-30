@@ -18,21 +18,26 @@
 package de.hsheilbronn.EgypttoursRServer.mapper;
 
 import de.hsheilbronn.EgypttoursRServer.dto.AltaegyptischeStaetteDTO;
+import de.hsheilbronn.EgypttoursRServer.dto.MuseumDTO;
 import de.hsheilbronn.EgypttoursRServer.model.AltaegyptischeStaette;
-import org.mapstruct.InjectionStrategy;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.ReportingPolicy;
+import de.hsheilbronn.EgypttoursRServer.model.Museum;
+import de.hsheilbronn.EgypttoursRServer.model.user.User;
+import de.hsheilbronn.EgypttoursRServer.service.implementation.AngebotService;
+import org.mapstruct.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author ADNAN <ADNAN.E@TUTANOTA.DE>
  */
 
-@Mapper(componentModel = "spring" ,
+@Mapper(componentModel = "spring" , uses = {AngebotService.class, AdresseMapper.class, ReviewMapper.class},
         injectionStrategy = InjectionStrategy.CONSTRUCTOR ,
         unmappedSourcePolicy = ReportingPolicy.IGNORE )
 public interface AltaegyptischeStaetteMapper {
-
 
     @Mapping(source = "id", target = "id")
     @Mapping(source = "name", target = "name")
@@ -46,7 +51,13 @@ public interface AltaegyptischeStaetteMapper {
     @Mapping(source = "adresse", target = "adresse")
     @Mapping(source = "oeffnungszeiten", target = "oeffnungszeiten")
     @Mapping(source = "erbauJahr", target = "erbauJahr")
+    @Mapping(source = "reviews", target = "reviews")
     public AltaegyptischeStaetteDTO toDTO (AltaegyptischeStaette altaegyptischeStaette);
 
+    @InheritInverseConfiguration(name = "toDTO")
+    public AltaegyptischeStaette toAltaegyptischeStaette (AltaegyptischeStaetteDTO altaegyptischeStaetteDTO);
 
+    default List<User> map2(Boolean value){
+        return null;
+    }
 }

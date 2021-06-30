@@ -28,18 +28,25 @@ import './BodySectionComponent.css';
 
 function BodySectionComponent() {
   return (
-    <div className='body-container'>
+    <div className='body-container' style={{background: "url('images/img-home.jpg') center center/cover no-repeat"}}>
       {/* <video src='/videos/video-1.mp4' autoPlay loop muted /> */}
+    
+      {!localStorage.getItem('access_token')?
+       <>
       <h1>Find the good out there</h1>
-      <p>What are you waiting for?</p>
+      <p>Join now for Special Travel Offers</p>
       <div className='body-btns'>
-        <ButtonComponent
+       
+       <ButtonComponent
           className='btns'
           buttonStyle='btn--outline'
           buttonSize='btn--large'
         >
-          GET STARTED
-        </ButtonComponent>
+          JOIN US
+        </ButtonComponent> 
+        
+       
+
         {/* <ButtonComponent
           className='btns'
           buttonStyle='btn--primary'
@@ -49,6 +56,11 @@ function BodySectionComponent() {
           WATCH TRAILER <i className='far fa-play-circle' />
         </ButtonComponent> */}
       </div>
+
+      </>:
+      <h1>Welcome To Egyp<i className="fas fa-campground"></i>ours</h1>
+      }
+
     </div>
   );
 }

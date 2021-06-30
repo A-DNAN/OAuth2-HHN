@@ -37,7 +37,9 @@ public class ErholungDTO {
     private String art;
     private List<String> bezahlarts;
     private String waehrung;
+    private List<ReviewDTO> reviews;
 
+    private Boolean preferredBy;
 
     private List<FilePath> pictureUrls;
     private Adresse adresse;
@@ -59,6 +61,7 @@ public class ErholungDTO {
     }
 
     public void setName(String name) {
+        if (name !=null && !name.isEmpty())
         this.name = name;
     }
 
@@ -67,6 +70,7 @@ public class ErholungDTO {
     }
 
     public void setBeschreibung(String beschreibung) {
+        if (beschreibung !=null && !beschreibung.isEmpty())
         this.beschreibung = beschreibung;
     }
 
@@ -75,6 +79,7 @@ public class ErholungDTO {
     }
 
     public void setGeldBetrag(String geldBetrag) {
+        if (geldBetrag !=null && !geldBetrag.isEmpty())
         this.geldBetrag = geldBetrag;
     }
 
@@ -83,6 +88,7 @@ public class ErholungDTO {
     }
 
     public void setWebsite(String website) {
+        if (website !=null && !website.isEmpty())
         this.website = website;
     }
 
@@ -91,6 +97,7 @@ public class ErholungDTO {
     }
 
     public void setTypeName(String typeName) {
+        if (typeName !=null && !typeName.isEmpty())
         this.typeName = typeName;
     }
 
@@ -107,6 +114,7 @@ public class ErholungDTO {
     }
 
     public void setBezahlarts(List<String> bezahlarts) {
+        if (bezahlarts !=null)
         this.bezahlarts = bezahlarts;
     }
 
@@ -115,6 +123,7 @@ public class ErholungDTO {
     }
 
     public void setWaehrung(String waehrung) {
+        if (waehrung !=null && !waehrung.isEmpty())
         this.waehrung = waehrung;
     }
 
@@ -123,6 +132,7 @@ public class ErholungDTO {
     }
 
     public void setPictureUrls(List<FilePath> pictureUrls) {
+        if (pictureUrls !=null)
         this.pictureUrls = pictureUrls;
     }
 
@@ -131,7 +141,16 @@ public class ErholungDTO {
     }
 
     public void setAdresse(Adresse adresse) {
+        if (adresse !=null )
         this.adresse = adresse;
+    }
+
+    public List<ReviewDTO> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<ReviewDTO> reviews) {
+        this.reviews = reviews;
     }
 
     public List<Oeffnungszeiten> getOeffnungszeiten() {
@@ -139,6 +158,7 @@ public class ErholungDTO {
     }
 
     public void setOeffnungszeiten(List<Oeffnungszeiten> oeffnungszeiten) {
+        if (oeffnungszeiten !=null )
         this.oeffnungszeiten = oeffnungszeiten;
     }
 
@@ -147,6 +167,15 @@ public class ErholungDTO {
     }
 
     public void setUsername(String username) {
+        if (username !=null )
         this.username = username;
+    }
+
+    public Boolean getPreferredBy() {
+        return preferredBy;
+    }
+
+    public void setPreferredBy(Boolean preferredBy) {
+        this.preferredBy = preferredBy;
     }
 }

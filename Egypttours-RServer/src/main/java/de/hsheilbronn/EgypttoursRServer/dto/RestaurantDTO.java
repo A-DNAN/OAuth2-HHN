@@ -37,6 +37,10 @@ public class RestaurantDTO {
     private String typeName;
     private List<String> bezahlarts;
     private String waehrung;
+    private List<ReviewDTO> reviews;
+
+    private Boolean preferredBy;
+
 
     private String kueche;
     private String zumMitnehmen;
@@ -158,4 +162,22 @@ public class RestaurantDTO {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public List<ReviewDTO> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<ReviewDTO> reviews) {
+        this.reviews = reviews;
+    }
+
+    public Boolean getPreferredBy() {
+        return preferredBy;
+    }
+
+    public void setPreferredBy(Boolean preferredBy) {
+        this.preferredBy = preferredBy;
+    }
+
+
 }

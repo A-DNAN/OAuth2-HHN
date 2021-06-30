@@ -19,16 +19,20 @@ package de.hsheilbronn.EgypttoursRServer.mapper;
 
 import de.hsheilbronn.EgypttoursRServer.dto.MuseumDTO;
 import de.hsheilbronn.EgypttoursRServer.model.Museum;
-import org.mapstruct.InjectionStrategy;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.ReportingPolicy;
+import de.hsheilbronn.EgypttoursRServer.model.user.User;
+import de.hsheilbronn.EgypttoursRServer.service.implementation.AngebotService;
+import org.mapstruct.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author ADNAN <ADNAN.E@TUTANOTA.DE>
  */
 
-@Mapper(componentModel = "spring" ,
+@Mapper(componentModel = "spring" , uses = {AngebotService.class, AdresseMapper.class, ReviewMapper.class},
         injectionStrategy = InjectionStrategy.CONSTRUCTOR ,
         unmappedSourcePolicy = ReportingPolicy.IGNORE )
 public interface MuseumMapper {
@@ -46,5 +50,15 @@ public interface MuseumMapper {
     @Mapping(source = "adresse", target = "adresse")
     @Mapping(source = "oeffnungszeiten", target = "oeffnungszeiten")
     @Mapping(source = "subject", target = "subject")
+    @Mapping(source = "reviews", target = "reviews")
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     public MuseumDTO toDTO (Museum museum);
+
+
+    @InheritInverseConfiguration(name = "toDTO")
+    public Museum toMuseum (MuseumDTO museumDTO);
+
+    default List<User> map2(Boolean value){
+        return null;
+    }
 }

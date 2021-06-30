@@ -19,21 +19,22 @@ package de.hsheilbronn.EgypttoursRServer.mapper;
 
 import de.hsheilbronn.EgypttoursRServer.dto.RestaurantDTO;
 import de.hsheilbronn.EgypttoursRServer.model.Restaurant;
-import org.mapstruct.InjectionStrategy;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.ReportingPolicy;
+import de.hsheilbronn.EgypttoursRServer.model.user.User;
+import de.hsheilbronn.EgypttoursRServer.service.implementation.AngebotService;
+import org.mapstruct.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import java.util.List;
 
 /**
  * @author ADNAN <ADNAN.E@TUTANOTA.DE>
  */
 
-@Mapper(componentModel = "spring" ,
+@Mapper(componentModel = "spring" , uses = {AngebotService.class, AdresseMapper.class, ReviewMapper.class},
         injectionStrategy = InjectionStrategy.CONSTRUCTOR ,
         unmappedSourcePolicy = ReportingPolicy.IGNORE )
 public interface RestaurantMapper {
-
-
 
 
     @Mapping(source = "id", target = "id")
@@ -49,6 +50,15 @@ public interface RestaurantMapper {
     @Mapping(source = "oeffnungszeiten", target = "oeffnungszeiten")
     @Mapping(source = "kueche", target = "kueche")
     @Mapping(source = "zumMitnehmen", target = "zumMitnehmen")
+    @Mapping(source = "reviews", target = "reviews")
     public RestaurantDTO toDTO (Restaurant restaurant);
 
+
+    @InheritInverseConfiguration(name = "toDTO")
+    public Restaurant toRestaurant (RestaurantDTO restaurantDTO);
+
+
+    default List<User> map2(Boolean value){
+        return null;
+    }
 }

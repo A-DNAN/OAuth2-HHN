@@ -29,7 +29,7 @@ video {
 }
 
 .body-container {
-  background: url('./../../images/img-home.jpg') center center/cover no-repeat;
+  /* background: url('./../../images/img-home.jpg') center center/cover no-repeat; */
   height: 100vh;
   width: 100%;
   display: flex;
@@ -90,5 +90,10 @@ video {
 
   .btn {
     width: 100%;
+  }
+}
+@media screen and (max-height: 600px) {
+  .body-container > h1 {
+    margin-top: 130px;
   }
 }

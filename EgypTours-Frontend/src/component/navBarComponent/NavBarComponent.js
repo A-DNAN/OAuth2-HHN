@@ -16,7 +16,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { ButtonComponent } from '../buttonComponent/ButtonComponent';
+// import { ButtonComponent } from '../buttonComponent/ButtonComponent';
 import { Link , useHistory} from 'react-router-dom';
 import './NavBarComponent.css';
 
@@ -30,23 +30,29 @@ function NavbarComponent(props) {
   const history = useHistory();
 
   const [click, setClick] = useState(false);
-  const [button, setButton] = useState(true);
+  // const [button, setButton] = useState(true);
   const [searchinput, setSearchInput] = useState(true);
 
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
 
-  const showButton = () => {
-    if (window.innerWidth <= 960) {
-      setButton(false);
-    } else {
-      setButton(true);
-    }
-  };
+  // const showButton = () => {
+  //   if (window.innerWidth <= 1075) {
+  //     setButton(false);
+  //   } else {
+  //     setButton(true);
+  //   }
+  // };
 
+  const handleKeyPress = (event) => {
+    if (event.keyCode === 13) {
+      searchRedirect();
+    }
+  }
 
   function logoutClick (){
     localStorage.clear();
+    window.location.reload();
   }
 
 
@@ -62,7 +68,7 @@ function NavbarComponent(props) {
   }
 
   const showSearchInput = () => {
-    if (window.innerWidth <= 960) {
+    if (window.innerWidth <= 1075) {
       setSearchInput(false)
     } else {
       setSearchInput(true);
@@ -70,38 +76,52 @@ function NavbarComponent(props) {
   };
 
   useEffect(() => {
-    showButton();
+    // showButton();
     showSearchInput();
   }, []);
 
-  window.addEventListener('resize', showButton);
+  // window.addEventListener('resize', showButton);
   window.addEventListener('resize', showSearchInput);
 
   return (
     <>
-      <nav className= {props.navStyle === undefined? 'navbar' :props.navStyle}>
-      {/* <nav className= 'navbar-home' > */}
+      <nav className= {(props.navStyle === undefined || click)?'navbar' :props.navStyle}>
       
         <div className='navbar-container'>
           <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
             Egyp<i className="fas fa-campground"></i>ours
           </Link>
-          <div className='menu-icon' onClick={handleClick}>
-            <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
+          <div className='menu-icon' >
+          
+          
+          {!searchinput && localStorage.getItem('access_token') &&
+              <Link
+              to='/user'
+              title="My Profile">
+            <img alt="" 
+            className='nav-profile-circle-mobile' 
+            src={localStorage?.pictureUrl !== undefined && localStorage?.pictureUrl !== "null"?localStorage.pictureUrl:"images/user.png"}></img>
+            </Link>
+            }
+
+
+            <i onClick={handleClick} className={click ? 'fas fa-times' : 'fas fa-bars'} />
           </div>
          
-          <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-            {/* <li className='nav-item'>
-              <Link to='/' className='nav-links' onClick={closeMobileMenu}>
-                Home
-              </Link>
-            </li> */}
+       
 
+          {/* <li className='nav-item'> */}
+    
+   
+{/* </li> */}
+
+
+          <ul className={click ? 'nav-menu active' : 'nav-menu'}>
 
             {localStorage.getItem('access_token')?
 <>
-<li className='nav-item'>
-          {!window.location.pathname.match("trips") && searchinput &&  
+      {!window.location.pathname.match("trips") && searchinput &&  
+      <li className='nav-item'>
           <div className="div-input-icon">
          <i onClick={searchRedirect} className="fa fa-search div-icon" />
           <input
@@ -110,18 +130,55 @@ function NavbarComponent(props) {
               type='text'
               placeholder='Search ' 
               onChange= {getSearchValue}
+              onKeyUp={handleKeyPress}
+              title="Search an offer"
             /> 
             </div>
-            }
-            </li>
             
+            </li> }
+
+            { searchinput && 
+  <li className='nav-item'>
+    <Link
+    to='/user'
+    title="My Profile">
+  <img alt="" 
+  className='nav-profile-circle' 
+  src={localStorage?.pictureUrl !== undefined && localStorage?.pictureUrl !== "null"?localStorage.pictureUrl:"images/user.png"}></img>
+  </Link>
+</li>
+}
+
+{ !searchinput && 
 <li className='nav-item'>
+<Link
+  to='/user'
+  className='nav-links'
+>
+  My Profile
+</Link>
+</li>
+}
+
+ <li className='nav-item'>
               <Link
                 to='/trips'
                 className='nav-links'
                 onClick={closeMobileMenu}
+                title="Show all offers"
               >
                 Trips
+              </Link>
+            </li>
+
+            <li className='nav-item'>
+              <Link
+                to='/new_offer'
+                className='nav-links'
+                onClick={closeMobileMenu}
+                title="Add new offer"
+              >
+      <i className="fas fa-plus-square"></i>
               </Link>
             </li>
 
@@ -130,24 +187,37 @@ function NavbarComponent(props) {
   to='/'
   className='nav-links'
   onClick={logoutClick}
+  title="Sign out"
 >
-  Sign out
+<i className="fas fa-sign-out-alt fa-icon-in-Out"></i>
 </Link>
 </li>
+
 </>
             :
             <>
-            
-            <li className='nav-item'>
+
+           { !window.location.pathname.match("join") && searchinput &&
+            <li>
+              <Link
+                to='/join'
+                className='nav-links'
+                // onClick={closeMobileMenu}
+              >
+                Sign up
+              </Link>
+            </li>}
+             <li className='nav-item'>
               <Link
                 to='/login'
                 className='nav-links'
                 onClick={closeMobileMenu}
+                title="Sign in"
               >
-                Sign in
+                <i className="fas fa-sign-in-alt fa-icon-in-Out"></i>
               </Link>
             </li>
-          { !window.location.pathname.match("join") &&
+          { !window.location.pathname.match("join") && 
             <li>
               <Link
                 to='/join'
@@ -157,11 +227,10 @@ function NavbarComponent(props) {
                 Sign Up
               </Link>
             </li>}
-
             </>
              }
           </ul>
-          { !window.location.pathname.match("join") && button && !localStorage.getItem('access_token') && <ButtonComponent buttonStyle='btn--outline'>SIGN UP</ButtonComponent>}
+          {/* { !window.location.pathname.match("join") && button && !localStorage.getItem('access_token') && <ButtonComponent buttonStyle='btn--outline'>SIGN UP</ButtonComponent>} */}
         </div>
       </nav>
     </>

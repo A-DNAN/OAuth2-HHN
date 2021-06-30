@@ -32,7 +32,7 @@ class AngebotService {
             size= 9;
         }
 
-     return await axios.get("http://localhost:8099/angebot/all",{
+     return await axios.get(`${process.env.REACT_APP_RSERVER_URL}/angebot/all`,{
             headers:{
                 Authorization: 'Bearer ' + localStorage.getItem("access_token")
             },
@@ -60,7 +60,7 @@ class AngebotService {
             size= 9;
         }
 
-     return await axios.get("http://localhost:8099/angebot/byname",{
+     return await axios.get(`${process.env.REACT_APP_RSERVER_URL}/angebot/byname`,{
             headers:{
                 Authorization: 'Bearer ' + localStorage.getItem("access_token")
             },
@@ -74,7 +74,7 @@ class AngebotService {
 
     async getAngebotById(id, type){
 
-     return await axios.get(`http://localhost:8099/angebot/${id}`,{
+     return await axios.get(`${process.env.REACT_APP_RSERVER_URL}/angebot/${id}`,{
             headers:{
                 Authorization: 'Bearer ' + localStorage.getItem("access_token")
             },
@@ -90,6 +90,13 @@ class AngebotService {
         let myparms = new URLSearchParams(search);
         return myparms.get('name')===null?'':myparms.get('name');
      } 
+
+
+    // ikUploadImage(){
+
+    // }
+
+
 
     render() {
         return null;

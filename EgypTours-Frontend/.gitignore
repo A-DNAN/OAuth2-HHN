@@ -10,6 +10,8 @@
 
 # production
 /build
+/npm
+/target
 
 # misc
 .DS_Store

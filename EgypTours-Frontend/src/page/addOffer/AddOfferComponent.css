@@ -1,0 +1,121 @@
+/**
+ *  Copyright (C) 2021  the original author or authors.
+ *
+ * 		This program is free software: you can redistribute it and/or modify
+ * 		it under the terms of the GNU General Public License as published by
+ * 		the Free Software Foundation, either version 3 of the License, or
+ * 		(at your option) any later version.
+ *
+ * 		This program is distributed in the hope that it will be useful,
+ * 		but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * 		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * 		GNU General Public License for more details.
+ *
+ * 		You should have received a copy of the GNU General Public License
+ * 		along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+ /**
+ * @author rbiebl <rbiebl@stud.hs-heilbronn.de>
+ */
+
+ .AaddPage {
+    /* background: url('../../../images/img-8.jpg') center center/cover no-repeat;  */
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
+    object-fit: contain;
+  }
+  
+  .AaddFormular {  
+    position:center;
+    background-color: rgb(0, 0, 0, .5);
+    padding: 10px 20px 30px 20px;
+    width: 35em;
+    margin: auto auto;
+    border-radius: 10px;
+  }
+  
+  .AData {
+    background-color: rgb(0, 0, 0, .5);
+  }
+  
+  .AAddress {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-content: space-evenly;
+  }
+  
+  .Apostal, .Ageographical {
+    display: grid;
+    align-content: space-evenly;
+  }
+  
+  .buttons {    
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-evenly;
+    justify-items: center;
+    align-content: space-evenly;
+  }
+  
+  .AFormField {      
+    margin-top: 10px;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  
+  .AFormField_input {   
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background: #f1f1f1;
+    font-size: 13px;
+  }
+  
+  .AFormField_input:focus {
+    background-color: #ddd;
+    outline: none;
+  }
+  
+  .AFormH1 {
+      color: rgb(252, 252, 252);
+      padding-top: 10px;
+      padding-bottom: 10px;
+  }
+  
+  .FormField__Button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 0px;
+  }
+  
+  .FormField__Button:hover {
+    opacity:1;
+  }
+    
+  @media screen and (max-width: 700px) {
+  .FormField__Button {
+    width: 100%;
+  }
+  .AaddFormular {width: 22em;}
+  }
+
+  @media screen and (max-height: 600px) {
+    .AaddPage {
+      padding-top: 22em;
+      padding-bottom: 22em;
+  }
+  }

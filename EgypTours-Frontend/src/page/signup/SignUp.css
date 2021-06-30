@@ -37,6 +37,7 @@
     background-color: rgb(0, 0, 0, .5);
     padding: 30px 20px 20px 20px;
     width: 35em;
+    border-radius: 10px;
   }
 
   .FormField {      
@@ -128,6 +129,48 @@
   display: block;
 }
 
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+.FormField-input-container {    
+  margin: 20px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  background: #f1f1f1;
+}
+
+.FormField-input-container input {
+  padding: 15px;
+  border-radius: 5px;
+  border: none;
+  background: #f1f1f1;
+  font-size: 18px;
+}
+
+.material-icons {
+  margin: 0 10px;
+  color: rgb(0, 0, 0);
+  cursor: default;
+}
+
+#visibility {
+  cursor: pointer;
+}
+
+
+.toggle-password {
+  position: absolute;
+  top: 40%;
+  right: .5rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+#form-control {
+position: relative;
+cursor: pointer;
+}
+
 /* Style the checkmark/indicator */
 .checkboxContainer .checkmark:after {
   left: 9px;
@@ -147,4 +190,11 @@
     width: 100%;
   }
   .sign-upForm {width: 22em;}
+}
+
+@media screen and (max-height: 600px) {
+  .sign-upPage {
+    padding-top: 25em;
+    padding-bottom: 20em;
+}
 }

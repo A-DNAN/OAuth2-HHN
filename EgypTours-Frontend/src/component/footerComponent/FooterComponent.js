@@ -17,7 +17,7 @@
 
 import React from 'react';
 import './FooterComponent.css';
-import { ButtonComponent } from '../buttonComponent/ButtonComponent';
+// import { ButtonComponent } from '../buttonComponent/ButtonComponent';
 import { Link } from 'react-router-dom';
 
 
@@ -28,7 +28,7 @@ import { Link } from 'react-router-dom';
 function FooterComponent() {
   return (
     <div className='footer-container'>
-      <section className='footer-subscription'>
+      {/* <section className='footer-subscription'>
         <p className='footer-subscription-heading'>
           Join the Adventure newsletter to receive our best vacation deals
         </p>
@@ -46,7 +46,7 @@ function FooterComponent() {
             <ButtonComponent buttonStyle='btn--outline'>Subscribe</ButtonComponent>
           </form>
         </div>
-      </section>
+      </section> */}
       <div className='footer-links'>
         <div className='footer-link-wrapper'>
           <div className='footer-link-items'>
@@ -55,7 +55,7 @@ function FooterComponent() {
             <Link to='/'>Testimonials</Link>
             <Link to='/'>Careers</Link>
             <Link to='/'>Investors</Link>
-            <Link to='/'>Terms of Service</Link>
+            <Link to='/terms'>Terms of Service</Link>
           </div>
           <div className='footer-link-items'>
             <h2>Contact Us</h2>
@@ -89,7 +89,7 @@ function FooterComponent() {
             Egyp<i className="fas fa-campground"></i>ours
             </Link>
           </div>
-          <small className='website-rights'>A © 2021</small>
+          <small className='website-rights'>A &#38; R © 2021</small>
           <div className='social-icons'>
             <Link
               className='social-icon-link facebook'

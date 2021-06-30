@@ -29,12 +29,12 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Adresse {
-	
+
 	@Id
 	@GeneratedValue (strategy = GenerationType.AUTO)
 	private Long id;
 	private String stadt;
-	private String Strasse;
+	private String strasse;
 	private double xKoordinate;
 	private double yKoordinate;
 	private String alternative;
@@ -46,7 +46,7 @@ public class Adresse {
 	public Adresse() {}	
 	public Adresse(String stadt, String strasse, double xKoordinate, double yKoordinate, String alternative) {
 		this.stadt = stadt;
-		Strasse = strasse;
+		this.strasse = strasse;
 		this.xKoordinate = xKoordinate;
 		this.yKoordinate = yKoordinate;
 		this.alternative = alternative;
@@ -79,13 +79,13 @@ public class Adresse {
 	 * @return the strasse
 	 */
 	public String getStrasse() {
-		return Strasse;
+		return strasse;
 	}
 	/**
 	 * @param strasse the strasse to set
 	 */
 	public void setStrasse(String strasse) {
-		Strasse = strasse;
+		this.strasse = strasse;
 	}
 	/**
 	 * @return the xKoordinate

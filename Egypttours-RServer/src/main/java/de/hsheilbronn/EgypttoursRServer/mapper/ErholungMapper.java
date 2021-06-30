@@ -19,14 +19,21 @@ package de.hsheilbronn.EgypttoursRServer.mapper;
 
 import de.hsheilbronn.EgypttoursRServer.dto.ErholungDTO;
 import de.hsheilbronn.EgypttoursRServer.model.Erholung;
+import de.hsheilbronn.EgypttoursRServer.model.user.User;
+import de.hsheilbronn.EgypttoursRServer.service.implementation.AngebotService;
 import org.mapstruct.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author ADNAN <ADNAN.E@TUTANOTA.DE>
  */
 
 
-@Mapper(componentModel = "spring" ,
+@Mapper(componentModel = "spring" , uses = {AngebotService.class, AdresseMapper.class, ReviewMapper.class},
         injectionStrategy = InjectionStrategy.CONSTRUCTOR ,
         unmappedSourcePolicy = ReportingPolicy.IGNORE )
 public interface ErholungMapper {
@@ -43,6 +50,18 @@ public interface ErholungMapper {
     @Mapping(source = "pictureUrls", target = "pictureUrls")
     @Mapping(source = "adresse", target = "adresse")
     @Mapping(source = "oeffnungszeiten", target = "oeffnungszeiten")
+    @Mapping(source = "reviews", target = "reviews")
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     public ErholungDTO toDTO (Erholung erholung);
+
+    @InheritInverseConfiguration(name = "toDTO")
+    public Erholung toErholung (ErholungDTO erholungDTO);
+
+
+
+    default List<User> map2(Boolean value){
+        return null;
+    }
+
 
 }

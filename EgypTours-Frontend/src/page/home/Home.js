@@ -33,7 +33,8 @@ function Home() {
     <>
        <Navbar navStyle='navbar-home'/>
       <BodySection />
-      <CardSection />
+      {localStorage.getItem('access_token') &&
+      <CardSection /> }
       <Footer />
     </>
   );

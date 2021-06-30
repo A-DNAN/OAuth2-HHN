@@ -42,6 +42,7 @@
      /* position: sticky; */
      top: 0;
      z-index: 999;
+     transition: all 1.5s ease-out;
   }
   
   .navbar-container {
@@ -70,7 +71,7 @@
   
   .nav-menu {
     display: grid;
-    grid-template-columns: repeat(4, auto);
+    grid-template-columns: repeat(5, auto);
     grid-gap: 10px;
     list-style: none;
     text-align: center;
@@ -83,12 +84,23 @@
     height: 80px;
   }
   
+  .nav-profile-circle{
+    display: flex;
+    margin-top: 1.2em;
+    border-radius: 40px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+  }
+
+
+
   .nav-links {
     color: #fff;
     display: flex;
     align-items: center;
     text-decoration: none;
-    padding: 0.5rem 1.2rem;
+    padding: 0.5rem 0.5rem;
     height: 100%;
   }
   .nav-input {
@@ -117,6 +129,11 @@
     border-bottom: 4px solid #fff;
     transition: all 0.2s ease-out;
   }
+
+  .nav-profile-circle:hover {
+    border: 2px solid #fff;
+    transition: all 0.3s ease-in;
+  }
   
  
   .div-input-icon .div-icon{
@@ -143,8 +160,17 @@
   .menu-icon {
     display: none;
   }
+
+  .fa-icon-in-Out{
+    margin-left: 15px;
+  }
   
-  @media screen and (max-width: 960px) {
+  @media screen and (max-width: 1075px) {
+
+    .nav-profile-circle{
+      display: none;
+    }
+
     .NavbarItems {
       position: relative;
     }
@@ -153,20 +179,21 @@
       display: flex;
       flex-direction: column;
       width: 100%;
-      height: 90vh;
+      height: 100%;
       position: absolute;
       top: 80px;
       left: -100%;
       opacity: 1;
       transition: all 0.5s ease;
     }
-  
+
     .nav-menu.active {
       background: #242222;
       left: 0;
       opacity: 1;
       transition: all 0.5s ease;
       z-index: 1;
+
     }
   
     .nav-links {
@@ -194,9 +221,25 @@
       position: absolute;
       top: 0;
       right: 0;
-      transform: translate(-100%, 60%);
+      transform: translate(-100%, 70%);
       font-size: 1.8rem;
       cursor: pointer;
+    }
+
+    .nav-profile-circle-mobile{
+      display: inline-flex;
+      position: relative;
+      border-radius: 30px;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      transform: translate(-60%, 10%);
+      background-color: red;
+    }
+  
+    .nav-profile-circle-mobile:hover {
+      border: 2px solid #fff;
+      transition: all 0.3s ease-in;
     }
   
     .fa-times {

@@ -31,31 +31,30 @@ import java.time.LocalDate;
 public class UProfile implements Serializable {
 
     public enum Gender {
-        FEMALE,
-        MALE
+        Female,
+        Male
     }
 
     @Id
-    private Integer id;
+    @GeneratedValue (strategy = GenerationType.AUTO)
+    private Long id;
     private String firstname;
     private String lastname;
     private String middle_name;
     private String pictureUrl;
-
     @Enumerated(value = EnumType.STRING)
     private Gender gender;
-
     private LocalDate birthdate;
 
     @OneToOne(fetch = FetchType.LAZY)
     private User user;
 
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -17,8 +17,25 @@
 
 package de.hsheilbronn.EgypttoursRServer.mapper;
 
+import de.hsheilbronn.EgypttoursRServer.dto.UserDTO;
+import de.hsheilbronn.EgypttoursRServer.model.user.UProfile;
+import org.mapstruct.*;
+
 /**
  * @author ADNAN <ADNAN.E@TUTANOTA.DE>
  */
+
+@Mapper(componentModel = "spring" , uses = {AdresseMapper.class},
+        injectionStrategy = InjectionStrategy.CONSTRUCTOR ,
+        unmappedSourcePolicy = ReportingPolicy.IGNORE )
 public interface UserMapper {
+
+    @Mapping(source = "user.username", target = "username")
+    @Mapping(source = "firstname", target = "firstname")
+    @Mapping(source = "lastname", target = "lastname")
+    @Mapping(source = "middle_name", target = "middle_name")
+    @Mapping(source = "pictureUrl", target = "pictureUrl")
+    @Mapping(source = "gender", target = "gender")
+    public UserDTO toDTO (UProfile uProfile);
+
 }

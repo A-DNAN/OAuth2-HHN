@@ -15,59 +15,80 @@
  * 		along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import React from 'react';
-import './CardSectionComponent.css';
+ import { Component } from 'react'
+ import './CardSectionComponent.css';
 import CardItem from './CardItemComponent';
+import AngebotService from '../../service/AngebotService'
+import AuthService from '../../service/AuthService'
 
 
 /**
  * @author ADNAN <ADNAN.E@TUTANOTA.DE>
  */
 
-function CardComponent() {
+ export class CardComponent extends Component {
+
+  constructor(props){
+    super(props);
+
+    
+    this.state = {
+      angebote : [],
+      }
+ 
+    }
+
+  async componentDidMount(){
+  await AngebotService.getAngebots(0,5).then(response => {
+    
+    this.setState({
+      angebote: response.data.content,
+  })
+  }).catch(error => {
+    this.setState({
+      angebote: '',
+  })
+  if(error.response?.status === 401){
+    AuthService.refreshTheToken();}
+    // console.log(error);
+})
+
+}
+
+render() {
   return (
     <div className='cards'>
-      <h1>Check out these EPIC Destinations!</h1>
-      <div className='cards__container'>
+      <h1>Check out these Destinations</h1>
         <div className='cards__wrapper'>
           <ul className='cards__items'>
-            <CardItem
-              src='images/img-9.jpg'
-              text='Explore the hidden waterfall deep inside the Amazon Jungle'
-              label='Adventure'
-              path='/services'
-            />
-            <CardItem
-              src='images/img-2.jpg'
-              text='Travel through the Islands of Bali in a Private Cruise'
-              label='Luxury'
-              path='/services'
-            />
+
+{this.state.angebote !=='' && this.state.angebote.slice(0,2).map(element => 
+
+<CardItem key={element.id} aId={element.id} aType={element.typeName} preferred={element.preferredBy}
+src={element.pictureUrls[0]!==undefined?element.pictureUrls[0].path:""}
+label={element.art !==undefined?element.art:element.typeName!==undefined?element.typeName:""}
+text= {element.name !==undefined?element.name:""}
+price= {element.geldBetrag !==undefined?element.geldBetrag:""}
+path={'/offer?uuid='+element.id+'&type='+element.typeName} 
+/>
+)}
           </ul>
           <ul className='cards__items'>
-            <CardItem
-              src='images/img-3.jpg'
-              text='Set Sail in the Atlantic Ocean visiting Uncharted Waters'
-              label='Mystery'
-              path='/services'
-            />
-            <CardItem
-              src='images/img-4.jpg'
-              text='Experience Football on Top of the Himilayan Mountains'
-              label='Adventure'
-              path='/products'
-            />
-            <CardItem
-              src='images/img-8.jpg'
-              text='Ride through the Sahara Desert on a guided camel tour'
-              label='Adrenaline'
-              path='/sign-up'
-            />
+          
+          {this.state.angebote !=='' && this.state.angebote.slice(2,5).map(element => 
+
+<CardItem key={element.id} aId={element.id} aType={element.typeName} preferred={element.preferredBy}
+src={element.pictureUrls[0]!==undefined?element.pictureUrls[0].path:""}
+label={element.art !==undefined?element.art:element.typeName!==undefined?element.typeName:""}
+text= {element.name !==undefined?element.name:""}
+price= {element.geldBetrag !==undefined?element.geldBetrag:""}
+path={'/offer?uuid='+element.id+'&type='+element.typeName} 
+/>
+)}
           </ul>
         </div>
-      </div>
     </div>
   );
 }
-
+ }
 export default CardComponent;

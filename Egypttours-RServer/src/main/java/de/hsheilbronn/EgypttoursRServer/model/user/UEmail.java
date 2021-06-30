@@ -31,7 +31,7 @@ public class UEmail implements Serializable {
     @Id
     private String email;
     private Boolean emailVerified = false;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     private User user;
 
 

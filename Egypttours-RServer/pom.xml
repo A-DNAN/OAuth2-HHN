@@ -11,11 +11,13 @@
 	<groupId>de.hs-heilbronn</groupId>
 	<artifactId>Egypttours-RServer</artifactId>
 	<version>0.0.1</version>
-<!--	<packaging>war</packaging>-->
+	<packaging>war</packaging>
 	<name>Egypttours-RServer</name>
 	<description>egypt tours Resource Server</description>
 	<properties>
 		<java.version>1.8</java.version>
+<!--		<maven.compiler.target>1.8</maven.compiler.target>-->
+<!--		<maven.compiler.source>1.8</maven.compiler.source>-->
 		<!-- Mapper-->
 		<org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
 		<!-- \Mapper-->
@@ -48,6 +50,12 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.15</version>
+		</dependency>
+
 		<!-- Mapper-->
 		<dependency>
 			<groupId>org.mapstruct</groupId>
@@ -61,11 +69,11 @@
 		</dependency>
 		<!-- \Mapper-->
 
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-tomcat</artifactId>-->
-<!--			<scope>provided</scope>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.security</groupId>
@@ -82,7 +90,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>rs-api</finalName>
+		<finalName>TGEgypt-rs-api</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

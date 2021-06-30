@@ -16,9 +16,10 @@
  */
 
 
-import React from 'react';
-import { Link } from 'react-router-dom';
-
+ import React, { useState } from 'react';
+ import { Link } from 'react-router-dom';
+ import axios from "axios";
+import AlertComponent from '../alertComponent/AlertComponent';
 
 /**
  * @author ADNAN <ADNAN.E@TUTANOTA.DE>
@@ -26,6 +27,51 @@ import { Link } from 'react-router-dom';
 
 
 function ListItemComponent(props) {
+
+
+  const [click, setClick] = useState(props.preferred);
+  const [alertUpdate, setAlert] = useState(
+    {alertOpen: false,
+    alertMessage: "",
+    alertSeverity: "",});
+
+  function handleClick() {
+    
+    setAlert({alertOpen: false,
+      alertMessage: "",
+      alertSeverity: "",});
+
+    axios.post(`${process.env.REACT_APP_RSERVER_URL}/angebot/preferred`,null,{
+    params:{
+      angebotId: props.aId,
+      angebotType: props.aType,
+      preferred: !click,
+    },
+    headers:{
+      Authorization: 'Bearer ' + localStorage.getItem("access_token")
+      }
+    })
+    .then((response) => {
+      
+        setAlert({alertOpen: true,
+        alertMessage: !click?"Added to Favorites successfully":"Removed from Favorites successfully",
+        alertSeverity: !click?"success":"info"});
+        
+        setClick(!click);
+
+    // console.log(response);
+
+    })
+    .catch((error) => {
+      // console.log(error);
+    });
+    
+
+    
+  }
+
+
+
   return (
     <>
       <li className='list__item'>
@@ -40,10 +86,16 @@ function ListItemComponent(props) {
           <div className='list__item__info'>
             <h5 className='list__item__text'>{props.text}</h5>
             <br/>
-            <h5 className='list__item__text'>Price: {props.price}</h5>
+            <h5 className='list__item__text'>Price: {Number(props.price)?.toFixed(2)} €</h5>
           </div>
         </Link>
+
+        <i onClick={handleClick} className={click ? 'fa fa-star filled-f-color' : 'far fa-star'}/>
       </li>
+
+      <div>
+      {alertUpdate.alertOpen && <AlertComponent message={alertUpdate.alertMessage} severity={alertUpdate.alertSeverity} />  } 
+      </div>
     </>
   );
 }

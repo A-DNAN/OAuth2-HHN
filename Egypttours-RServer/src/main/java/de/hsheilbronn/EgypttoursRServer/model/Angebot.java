@@ -19,6 +19,7 @@ package de.hsheilbronn.EgypttoursRServer.model;
 
 import de.hsheilbronn.EgypttoursRServer.model.user.User;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
@@ -31,18 +32,21 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Angebot {
+public abstract class Angebot implements Serializable {
 
 	
 	@Id
 	@GeneratedValue (strategy = GenerationType.AUTO)
 	private Long id;
+	@Column(columnDefinition = "TEXT")
 	private String name;
 	@Column(columnDefinition = "TEXT")
 	private String beschreibung;
 	private double geldBetrag;
+	@Column(columnDefinition = "TEXT")
 	private String website;
 	private String typeName;
+//	private Double rating;
 
 	@Enumerated(EnumType.STRING)
 	@ElementCollection(targetClass = EBezahlart.class)
@@ -61,6 +65,12 @@ public abstract class Angebot {
 	
 	@ManyToOne (fetch = FetchType.LAZY)
 	private User user;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	private List<User> preferredBy;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "angebot")
+	private List<Review> reviews;
 	
 	
 	public Angebot() {}
@@ -240,13 +250,56 @@ public abstract class Angebot {
 	}
 
 
+//	/**
+//	 *
+//	 * @return
+//	 */
+//	public Double getRating() {
+//		return rating;
+//	}
+//
+//	/**
+//	 *
+//	 * @param rating
+//	 */
+//	public void setRating(Double rating) {
+//		this.rating = rating;
+//	}
+
+	/**
+	 *
+	 * @return
+	 */
 	public String getTypeName() {
 		if(typeName == null || typeName.isEmpty())
 			typeName = getClass().getName();
 		return typeName;
 	}
 
+	/**
+	 *
+	 * @param typeName
+	 */
 	public void setTypeName(String typeName) {
 		this.typeName = typeName;
+	}
+
+
+	public List<User> getPreferredBy() {
+		if(preferredBy == null) preferredBy = new ArrayList<>();
+		return preferredBy;
+	}
+
+	public void setPreferredBy(List<User> preferredBy) {
+		this.preferredBy = preferredBy;
+	}
+
+	public List<Review> getReviews() {
+		if(reviews == null) reviews = new ArrayList<>();
+		return reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
 	}
 }

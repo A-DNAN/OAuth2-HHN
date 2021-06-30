@@ -1,0 +1,33 @@
+.inner-box{
+    color: black;
+    /* margin-bottom: 15px; */
+}
+
+.titleBar-ReviewGridList {
+    background: none;
+}
+.root-ReviewGridList {
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: space-around;
+    overflow: hidden;
+}
+.gridList-ReviewGridList {
+    width: 120vh;
+    height: 300,
+}
+
+.root-ReviewComponent{
+    margin: auto;
+}
+.root-ReviewComment{
+    margin: auto;
+    width: 50vh;
+    margin-top: 50px;
+}
+
+.reviewComponent-pDate{
+    color: darkgray;
+    margin-top: 5px;
+    text-align: right;
+}

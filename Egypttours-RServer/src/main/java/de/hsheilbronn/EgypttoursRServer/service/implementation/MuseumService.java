@@ -19,16 +19,26 @@ package de.hsheilbronn.EgypttoursRServer.service.implementation;
 
 
 import de.hsheilbronn.EgypttoursRServer.dao.MuseumRepository;
+import de.hsheilbronn.EgypttoursRServer.dto.ErholungDTO;
+import de.hsheilbronn.EgypttoursRServer.dto.MuseumDTO;
 import de.hsheilbronn.EgypttoursRServer.exception.NotFoundException;
 import de.hsheilbronn.EgypttoursRServer.exception.OperationNotAllowedException;
+import de.hsheilbronn.EgypttoursRServer.mapper.MuseumMapper;
+import de.hsheilbronn.EgypttoursRServer.model.Erholung;
 import de.hsheilbronn.EgypttoursRServer.model.Museum;
+import de.hsheilbronn.EgypttoursRServer.model.user.User;
 import de.hsheilbronn.EgypttoursRServer.service.IMuseumService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +53,8 @@ public class MuseumService implements IMuseumService {
 
     @Autowired
     private MuseumRepository museumRepository;
+    @Autowired
+    private MuseumMapper museumMapper;
 
     /**
      *
@@ -50,21 +62,43 @@ public class MuseumService implements IMuseumService {
      * @throws NotFoundException
      */
     @Override
-    public List<Museum> findAll() throws NotFoundException {
+    public Page<MuseumDTO> findAll(Integer page, Integer size) throws NotFoundException{
         List<Museum> museums = museumRepository.findAll();
+        List<MuseumDTO> museumDTOs = new ArrayList<>();
+        museums.stream().parallel().forEach(museum -> {
+            museumDTOs.add(museumMapper.toDTO(museum));
+        });
+
+        Page<MuseumDTO> angebots = new PageImpl<MuseumDTO>(
+                museumDTOs,
+                PageRequest.of(page==null || page < 0?0:page,
+                        size==null || size <= 1?9:size),museumDTOs.size()
+        );
+
         if(museums == null || museums.isEmpty())
             throw new NotFoundException("No Element Found");
 
-        return museums;
+        return angebots;
     }
 
     /**
-     * @param museum
+     * @param museumDTO
      * @throws SQLException
      */
     @Override
-    public void save(Museum museum) throws SQLException {
+    public void save(MuseumDTO museumDTO, Authentication authentication) throws SQLException {
+        if(museumDTO == null)
+        {
+            throw new OperationNotAllowedException("Museum is Required");
+        }
 
+        museumDTO.setId(null);
+//        eRequiredAttributesCheck(museumDTO);
+        Museum museum = museumMapper.toMuseum(museumDTO);
+        User user = new User();
+        user.setUsername(authentication.getName());
+        museum.setUser(user);
+        museumRepository.save(museum);
     }
 
     /**
@@ -99,4 +133,8 @@ public class MuseumService implements IMuseumService {
         if(museum == null) throw new OperationNotAllowedException("Museum can't be null");
         museumRepository.delete(museum);
     }
+
+
+
+
 }

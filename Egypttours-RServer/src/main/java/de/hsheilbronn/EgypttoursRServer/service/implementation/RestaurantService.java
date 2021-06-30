@@ -18,18 +18,27 @@
 package de.hsheilbronn.EgypttoursRServer.service.implementation;
 
 import de.hsheilbronn.EgypttoursRServer.dao.RestaurantRepository;
+import de.hsheilbronn.EgypttoursRServer.dto.ErholungDTO;
+import de.hsheilbronn.EgypttoursRServer.dto.MuseumDTO;
+import de.hsheilbronn.EgypttoursRServer.dto.RestaurantDTO;
 import de.hsheilbronn.EgypttoursRServer.exception.NotFoundException;
 import de.hsheilbronn.EgypttoursRServer.exception.OperationNotAllowedException;
+import de.hsheilbronn.EgypttoursRServer.mapper.RestaurantMapper;
 import de.hsheilbronn.EgypttoursRServer.model.*;
+import de.hsheilbronn.EgypttoursRServer.model.user.User;
 import de.hsheilbronn.EgypttoursRServer.service.IRestaurantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -43,6 +52,8 @@ public class RestaurantService implements IRestaurantService {
 
     @Autowired
     private RestaurantRepository restaurantRepository;
+    @Autowired
+    private RestaurantMapper restaurantMapper;
 
     /**
      *
@@ -50,61 +61,44 @@ public class RestaurantService implements IRestaurantService {
      * @throws NotFoundException
      */
     @Override
-    public Page<Restaurant> findAll(Integer page,Integer size) throws NotFoundException {
-       Page<Restaurant> restaurants = restaurantRepository.findAll(
-               PageRequest.of(page==null || page < 0?0:page,
-                       size==null || size <= 1?9:size)
+    public Page<RestaurantDTO> findAll(Integer page,Integer size) throws NotFoundException {
+        List<Restaurant> restaurants = restaurantRepository.findAll();
+        List<RestaurantDTO> restaurantDTOs = new ArrayList<>();
+        restaurants.stream().parallel().forEach(restaurant -> {
+            restaurantDTOs.add(restaurantMapper.toDTO(restaurant));
+        });
+
+        Page<RestaurantDTO> angebots = new PageImpl<RestaurantDTO>(
+                restaurantDTOs,
+                PageRequest.of(page==null || page < 0?0:page,
+                        size==null || size <= 1?9:size),restaurantDTOs.size()
         );
+
         if(restaurants == null || restaurants.isEmpty())
             throw new NotFoundException("No Element Found");
 
-        return restaurants;
+        return angebots;
     }
 
     /**
-     * @param Restaurant
+     * @param restaurantDTO
      * @throws SQLException
      */
     @Override
-    public void save(Restaurant Restaurant) throws SQLException {
+    public void save(RestaurantDTO restaurantDTO, Authentication authentication) throws SQLException {
 
-//        Restaurant restaurant = new Restaurant();
-//        restaurant.setName("Akher Sa'a");
-//        restaurant.setBeschreibung("Popular snack bar offering Arabic fuul and taamiyya specialties, mezze appetizers, but also simple omelet and meat dishes. Recommended is \"Kibda Iskanderani\", spicy fried liver. Alcohol is not served here.");
-//        restaurant.setGeldBetrag(22.7);
-//
-//        Adresse adresse = new Adresse();
-//        adresse.setStrasse("Mohammed Bek Al Alfi");
-//        adresse.setStadt("Cairo");
-//        adresse.setxKoordinate(30.05361);
-//        adresse.setyKoordinate(31.24377);
-//
-//        restaurant.setKueche("regional");
-//        restaurant.setZumMitnehmen(true);
-//
-//        Oeffnungszeiten oeffnungszeiten = new Oeffnungszeiten();
-//        oeffnungszeiten.setVon(LocalTime.of(01,0,0,0));
-//        oeffnungszeiten.setBis(LocalTime.of(23,59,0,0));
-//
-//        List<Oeffnungszeiten> oeffnungszeitens = new ArrayList<>();
-//        oeffnungszeitens.add(oeffnungszeiten);
-//
-//
-//        FilePath picture = new FilePath();
-//        picture.setFormat("jpg");
-//        picture.setPath("http://kpp");
-//        picture.setDescription("r2d");
-//
-//        List<FilePath> pictures = new ArrayList<>();
-//        pictures.add(picture);
-//
-//        restaurant.setOeffnungszeiten(oeffnungszeitens);
-//        restaurant.setAdresse(adresse);
-//        restaurant.setPictureUrls(pictures);
-//
-//        restaurantRepository.save(restaurant);
+        if(restaurantDTO == null)
+        {
+            throw new OperationNotAllowedException("Museum is Required");
+        }
 
-
+        restaurantDTO.setId(null);
+//        eRequiredAttributesCheck(restaurantDTO);
+        Restaurant restaurant = restaurantMapper.toRestaurant(restaurantDTO);
+        User user = new User();
+        user.setUsername(authentication.getName());
+        restaurant.setUser(user);
+        restaurantRepository.save(restaurant);
     }
 
     /**

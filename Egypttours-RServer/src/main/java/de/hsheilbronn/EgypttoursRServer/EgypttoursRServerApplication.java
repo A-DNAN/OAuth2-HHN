@@ -28,15 +28,15 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 @SpringBootApplication
 public class EgypttoursRServerApplication
-//		extends SpringBootServletInitializer
+		extends SpringBootServletInitializer
 {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EgypttoursRServerApplication.class, args);
 	}
 
-//	@Override
-//	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-//		return builder.sources(EgypttoursRServerApplication.class);
-//	}
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		return builder.sources(EgypttoursRServerApplication.class);
+	}
 }

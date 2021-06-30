@@ -17,8 +17,11 @@
 
 package de.hsheilbronn.EgypttoursRServer.service;
 
+import de.hsheilbronn.EgypttoursRServer.dto.AltaegyptischeStaetteDTO;
 import de.hsheilbronn.EgypttoursRServer.exception.NotFoundException;
 import de.hsheilbronn.EgypttoursRServer.model.AltaegyptischeStaette;
+import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -33,14 +36,14 @@ public interface IAltaegyptischeStaetteService {
      * @return
      * @throws NotFoundException
      */
-    public List<AltaegyptischeStaette> findAll() throws NotFoundException;
+    public Page<AltaegyptischeStaetteDTO> findAll(Integer page, Integer size) throws NotFoundException;
 
     /**
      *
-     * @param altaegyptischeStaette
+     * @param altaegyptischeStaetteDTO
      * @throws SQLException
      */
-    public void save(AltaegyptischeStaette altaegyptischeStaette) throws SQLException;
+    public void save(AltaegyptischeStaetteDTO altaegyptischeStaetteDTO, Authentication authentication) throws SQLException ;
 
     /**
      *

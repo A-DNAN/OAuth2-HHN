@@ -29,10 +29,21 @@
   height: 95vh;
 }
 
-  .product-container {
+.product-container {
     display: flex;
     padding: 10px;
     /* background-color: rgb(236, 236, 236); */
+  }
+
+
+  .leaflet-container {
+    height: 80vh;
+    width: 90%;
+    margin: auto;
+    border-radius: 20px;
+    margin-top: 0;
+    margin-bottom: 20px;
+
   }
 
   @media screen and (max-width: 1600px) { 
@@ -43,6 +54,7 @@
     }
     .Details{
       width: 100%;
+      height: 70%;
       /* margin-left: auto;
       margin-right: auto; */
     }
@@ -50,18 +62,13 @@
   }
 
 .Map {
-  /* height: 100vh; */
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 25px;
-  border-radius: 2em;
-
-  padding: 20em;
-
-  background-color: rgb(80, 252, 0);
+  display: flex;
+  padding: 2em;
 }
 
+.offerMapContainer {
+  margin-right: 15px;
+}
 
 #element {
   margin-top: 20px;
@@ -90,6 +97,16 @@
       width: 100%;
       /* margin-left: auto;
       margin-right: auto; */
+    }
+  }
+  @media screen and (max-width: 900px) {
+    .Map {
+      display: grid;
+      padding: 0;
+    }
+    .offerMapContainer {
+      margin: auto;
+      margin-bottom: 20px;
     }
   }
 

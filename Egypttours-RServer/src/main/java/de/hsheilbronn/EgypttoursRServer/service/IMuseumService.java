@@ -17,11 +17,13 @@
 
 package de.hsheilbronn.EgypttoursRServer.service;
 
+import de.hsheilbronn.EgypttoursRServer.dto.MuseumDTO;
 import de.hsheilbronn.EgypttoursRServer.exception.NotFoundException;
 import de.hsheilbronn.EgypttoursRServer.model.Museum;
+import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
 
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  * @author ADNAN <ADNAN.E@TUTANOTA.DE>
@@ -34,14 +36,15 @@ public interface IMuseumService {
      * @return
      * @throws NotFoundException
      */
-    public List<Museum> findAll()  throws NotFoundException;
+    public Page<MuseumDTO> findAll(Integer page, Integer size) throws NotFoundException;
 
     /**
      *
-     * @param museum
+     * @param museumDTO
+     * @param authentication
      * @throws SQLException
      */
-    public void save(Museum museum) throws SQLException;
+    public void save(MuseumDTO museumDTO, Authentication authentication) throws SQLException;
 
     /**
      *

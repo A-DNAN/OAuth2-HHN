@@ -1,24 +1,138 @@
 /**
- *  Copyright (C) 2021  the original author or authors.
- *
- * 		This program is free software: you can redistribute it and/or modify
- * 		it under the terms of the GNU General Public License as published by
- * 		the Free Software Foundation, either version 3 of the License, or
- * 		(at your option) any later version.
- *
- * 		This program is distributed in the hope that it will be useful,
- * 		but WITHOUT ANY WARRANTY; without even the implied warranty of
- * 		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * 		GNU General Public License for more details.
- *
- * 		You should have received a copy of the GNU General Public License
- * 		along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
+*  Copyright (C) 2021  the original author or authors.
+*
+* 		This program is free software: you can redistribute it and/or modify
+* 		it under the terms of the GNU General Public License as published by
+* 		the Free Software Foundation, either version 3 of the License, or
+* 		(at your option) any later version.
+*
+* 		This program is distributed in the hope that it will be useful,
+* 		but WITHOUT ANY WARRANTY; without even the implied warranty of
+* 		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* 		GNU General Public License for more details.
+*
+* 		You should have received a copy of the GNU General Public License
+* 		along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
 
 
+/**
+* @author rbiebl <rbiebl@stud.hs-heilbronn.de>
+* @author ADNAN <ADNAN.E@TUTANOTA.DE>
+*/
 
+.ProfilePage {
+    background: url("../../images/2img-home.jpg") center center/cover no-repeat;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    object-fit: contain;
+    /* padding-top: 20em;
+    padding-bottom: 20em; */
+}
+
+.ProfileBox {
+    position: center;
+    background-color: rgba(255, 255, 255, 0.70);
+    padding: 20px 20px 20px 20px;
+    width: 35em;
+    border-radius: 10px;
+}
+
+  
+  .wrappers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .wrapper1,
+  .wrapper2 {
+    display: grid;
+    row-gap: 10px;
+  }
+  
+  
+  .FormField__Button {
+    background-color: #007413;
+    color: white;
+    opacity: 0.7;
+    letter-spacing: 1px;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    box-shadow: none;
+  }
+  
+  .FormField__Button:hover {
+    opacity: 1;
+    color: #fff;
+    /* box-shadow: 0px 0px 20px 0px #63d3a6; */
+  }
+  
+  .FormField__Button:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  
+  @media screen and (max-width: 700px) {
+    .FormField__Button {
+      width: 100%;
+    }
+    .ProfileBox {
+      width: 22em;
+    }
+  }
+  
+  
+  .Pic {
+    width: 96px;
+    height: 96px;
+    background-color: #999999;
+    border: 4px solid #cccccc;
+    color: #ffffff;
+    border-radius: 50%;
+    margin: 0px auto;
+    margin-bottom: 60px;
+    overflow: hidden;
+    transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+  }
+  
+  .Pic:hover {
+    border-color: #2ca8ff;
+  }
+  
+  .Pic input[type="file"] {
+    cursor: pointer;
+    display: block;
+    height: 8em;
+    /* left: 0; */
+    opacity: 0 !important;
+    position: absolute;
+    background-color: #2ca8ff;
+    margin-top: -100px;
+    margin-left: -7px;
+    margin-bottom: 50px;
+    width: 100px;
+  }
+  
+  .picture-src {
+    width: 100%;
+  }
+  /*Profile Pic End*/
  
-
+  @media screen and (max-height: 600px) {
+    .ProfilePage {
+      padding-top: 20em;
+      padding-bottom: 20em;
+  }
+  }
 
 
  

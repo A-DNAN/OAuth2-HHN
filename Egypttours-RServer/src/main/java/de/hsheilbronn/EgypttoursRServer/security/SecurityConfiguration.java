@@ -35,6 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 		   http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		  .and().authorizeRequests()
+				   .mvcMatchers("/ik-auth").permitAll()
 				   .anyRequest()
 				   .authenticated()
 				   .and()

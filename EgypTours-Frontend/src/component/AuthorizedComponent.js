@@ -17,7 +17,8 @@
 
  import { Component } from 'react';
  import AuthService from "../service/AuthService";
-//  import userService from "../service/UserService";
+import UserService from '../service/UserService'
+
  
  
  /**
@@ -39,7 +40,18 @@
        await AuthService.getTokens();
         //  AuthService.verifyToken();
 
-        this.props.history.push("/");
+          UserService.getUser().then(response => {
+          //  this.setState({
+          //  loggedUser: 
+          //  })
+           localStorage.setItem("pictureUrl",response.data.pictureUrl)
+           // console.log(this.state.user);
+           }).catch(error => {
+             console.log(error);
+         })
+
+        this.props.history.push("/trips");
+        window.location.reload();
         //  window.location.href = "http://localhost:8081";
        }
  

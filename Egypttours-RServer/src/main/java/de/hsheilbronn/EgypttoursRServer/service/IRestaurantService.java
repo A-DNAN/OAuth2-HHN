@@ -17,9 +17,11 @@
 
 package de.hsheilbronn.EgypttoursRServer.service;
 
+import de.hsheilbronn.EgypttoursRServer.dto.RestaurantDTO;
 import de.hsheilbronn.EgypttoursRServer.exception.NotFoundException;
 import de.hsheilbronn.EgypttoursRServer.model.Restaurant;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
 
 import java.sql.SQLException;
 
@@ -34,14 +36,14 @@ public interface IRestaurantService {
      * @return
      * @throws NotFoundException
      */
-    public Page<Restaurant> findAll(Integer page, Integer size) throws NotFoundException;
+    public Page<RestaurantDTO> findAll(Integer page, Integer size) throws NotFoundException;
 
     /**
      *
-     * @param restaurant
+     * @param restaurantDTO
      * @throws SQLException
      */
-    public void save(Restaurant restaurant) throws SQLException;
+    public void save(RestaurantDTO restaurantDTO, Authentication authentication) throws SQLException;
 
     /**
      *

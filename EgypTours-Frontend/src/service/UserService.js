@@ -15,7 +15,8 @@
  * 		along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import React, { Component } from 'react'
+import { Component } from 'react'
+import axios from "axios";
 
 /**
  * @author ADNAN <ADNAN.E@TUTANOTA.DE>
@@ -27,14 +28,36 @@ export class UserService extends Component {
 //    constructor(props){
 //        super(props);
 //    }
+
+async updateUser(){
+   return await axios.put(`${process.env.REACT_APP_RSERVER_URL}/user`,{
+    //   firstname,
+    //   lastname,
+    //   middle_name,
+    //   pictureUrl,
+    //   gender,
+    //   birthdate,
+    //   email,
+    //   phone_number,
+    }, {
+    headers:{
+      Authorization: 'Bearer ' + localStorage.getItem("access_token")
+          }
+    });
+
+    }
+
+    async getUser(){
+        return await axios.get(`${process.env.REACT_APP_RSERVER_URL}/user`,{
+         headers:{
+           Authorization: 'Bearer ' + localStorage.getItem("access_token")
+               }
+         });
+         }
    
 
     render() {
-        return (
-            <div>
-                
-            </div>
-        )
+        return null;
     }
 }
 

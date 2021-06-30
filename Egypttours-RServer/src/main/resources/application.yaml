@@ -5,15 +5,16 @@ spring:
     password: ""
     driver-class-name: "org.mariadb.jdbc.Driver"
   jpa:
-    #    database-platform: "org.hibernate.dialect.MySQL8Dialect"
+    database-platform: "org.hibernate.dialect.MySQL8Dialect"
     hibernate:
       ddl-auto: "update"
-
+      
 
   security:
     oauth2:
       resourceserver:
         jwt:
+          #jwk-set-uri: https://seserver.se.hs-heilbronn.de:9443/TGEgypt-as-api/oauth2/jwks
           #issuer-uri: http://localhost:8088
           issuer-uri: https://seserver.se.hs-heilbronn.de:9443/TGEgypt-as-api
 

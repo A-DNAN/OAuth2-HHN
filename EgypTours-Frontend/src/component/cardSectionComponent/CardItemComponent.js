@@ -16,8 +16,11 @@
  */
 
 
-import React from 'react';
-import { Link } from 'react-router-dom';
+ import React, { useState } from 'react';
+ import { Link } from 'react-router-dom';
+ import axios from "axios";
+import AlertComponent from '../alertComponent/AlertComponent';
+
 
 
 /**
@@ -26,8 +29,52 @@ import { Link } from 'react-router-dom';
 
 
 function CardItemComponent(props) {
+   
+  const [click, setClick] = useState(props.preferred);
+  const [alertUpdate, setAlert] = useState(
+    {alertOpen: false,
+    alertMessage: "",
+    alertSeverity: "",});
+
+  function handleClick() {
+    
+    setAlert({alertOpen: false,
+      alertMessage: "",
+      alertSeverity: "",});
+
+    axios.post(`${process.env.REACT_APP_RSERVER_URL}/angebot/preferred`,null,{
+    params:{
+      angebotId: props.aId,
+      angebotType: props.aType,
+      preferred: !click,
+    },
+    headers:{
+      Authorization: 'Bearer ' + localStorage.getItem("access_token")
+      }
+    })
+    .then((response) => {
+      
+        setAlert({alertOpen: true,
+        alertMessage: !click?"Added to Favorites successfully":"Removed from Favorites successfully",
+        alertSeverity: !click?"success":"info"});
+
+        setClick(!click);
+
+    // console.log(response);
+
+    })
+    .catch((error) => {
+      // console.log(error);
+    });
+    
+
+    
+  }
+
+
   return (
     <>
+   
       <li className='cards__item'>
         <Link className='cards__item__link' to={props.path}>
           <figure className='cards__item__pic-wrap' data-category={props.label}>
@@ -41,7 +88,14 @@ function CardItemComponent(props) {
             <h5 className='cards__item__text'>{props.text}</h5>
           </div>
         </Link>
+
+        <i onClick={handleClick} className={click ? 'fa fa-star filled-f-color' : 'far fa-star'}/>
       </li>
+      
+      <div>
+      {alertUpdate.alertOpen && <AlertComponent message={alertUpdate.alertMessage} severity={alertUpdate.alertSeverity} />  } 
+      </div>
+
     </>
   );
 }

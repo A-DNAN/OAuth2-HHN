@@ -18,10 +18,7 @@
 
 package de.hsheilbronn.EgypttoursRServer.model.user;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -33,6 +30,7 @@ import java.util.List;
 public class UAddress implements Serializable {
 
    @Id
+   @GeneratedValue(strategy = GenerationType.AUTO)
    private Integer id;
    private String street;
    private String town;

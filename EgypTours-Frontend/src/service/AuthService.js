@@ -62,6 +62,28 @@ let JWKS = createRemoteJWKSet(new URL('https://seserver.se.hs-heilbronn.de:9443/
             console.log(error)
         })
      }
+   async refreshTheToken() {
+       if(localStorage.getItem("refresh_token")){
+        await axios.post(process.env.REACT_APP_ASTOKENPATH,null,{
+            headers: {
+               "Authorization": `Basic ${process.env.REACT_APP_CLIENT_CREDENTIAL}`
+           },
+            params: {
+            grant_type:"refresh_token",
+            refresh_token: "NqtsVLYTwdUF0TTrPiXCARic8St5jwZZmJZwJECAHk94zM4CmKuOEAne3iiZ1EKVrs0CGNzRvxq3kc1PscMcFz9B6aaQd5WXrCi49FIAk03AiZNAvBu0TywwlikBWiRN"
+        }}).then(function (response){
+           localStorage.setItem("access_token", response.data.access_token) // response.data.access_token
+           localStorage.setItem("id_token", response.data.id_token) // response.data.id_token
+        }).catch(function (error){
+            if(error.response?.status === 400){
+                localStorage.clear();
+                window.location.reload();}
+        })
+    }else {// should logout 
+        localStorage.clear();
+        window.location.reload();
+    }
+     }
 
     verifyToken(){
        jwtVerify(localStorage.access_token , JWKS, {

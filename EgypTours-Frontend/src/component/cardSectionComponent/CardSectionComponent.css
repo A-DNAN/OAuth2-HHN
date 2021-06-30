@@ -29,18 +29,20 @@ h1 {
   text-align: center;
 }
 
-.cards__container {
+/* .cards__container {
   display: flex;
   flex-flow: column;
-  align-items: center;
-  max-width: 1120px;
-  width: 90%;
+  align-items: center; */
+  /* max-width: 1120px; */
+  /* width: 90%;
   margin: 0 auto;
-}
+} */
 
 .cards__wrapper {
+  top: 50px;
+  width: 80%;
   position: relative;
-  margin: 50px 0 45px;
+  margin: 0 auto;
 }
 
 .cards__items {
@@ -72,6 +74,30 @@ h1 {
   padding-top: 67%;
   overflow: hidden;
 }
+
+
+/* star favorite css */
+.fa-star {
+  font-size: x-large;
+  margin-top: 1%;
+  margin-left: 1%;
+  position: absolute;
+  cursor: pointer;
+  color: rgb(255, 255, 255);
+  fill: aqua;
+}
+
+.filled-f-color {
+  color: rgb(255, 196, 0);
+}
+.fa-star:hover {
+  color: rgb(255, 196, 0);
+  font-size: xx-large;
+  transition: all 0.3s ease-in;
+}
+
+/* end star favorite css */
+
 
 .fade-img {
   animation-name: fade-img;
@@ -136,5 +162,10 @@ h1 {
 @media only screen and (max-width: 1024px) {
   .cards__item {
     margin-bottom: 2rem;
+  }
+}
+@media only screen and (max-width: 650px) {
+  .cards__wrapper {
+    width: 100%;
   }
 }

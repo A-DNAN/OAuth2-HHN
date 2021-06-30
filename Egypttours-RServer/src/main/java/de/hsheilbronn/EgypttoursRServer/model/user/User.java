@@ -26,6 +26,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author ADNAN <ADNAN.E@TUTANOTA.DE>
@@ -53,7 +54,7 @@ public class User implements UserDetails , Serializable{
         ROLE_USER,
         ROLE_ADMIN,
         WRITE,
-        READ
+        READ,
     }
     ///////////////////////////////
 
@@ -132,5 +133,18 @@ public class User implements UserDetails , Serializable{
 
     public void setAuthorities(List<UAuthority> authorities) {
         this.authorities = authorities;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(username, user.username);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username);
     }
 }

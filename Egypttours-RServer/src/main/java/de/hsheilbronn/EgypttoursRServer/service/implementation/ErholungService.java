@@ -84,12 +84,14 @@ public class ErholungService implements IErholungService {
     }
 
     /**
-     * @param erholung
+     * @param erholungDTO
      * @throws SQLException
      */
     @Override
-    public void save(Erholung erholung, Authentication authentication) throws SQLException, OperationNotAllowedException {
-        eRequiredAttributesCheck(erholung);
+    public void save(ErholungDTO erholungDTO, Authentication authentication) throws SQLException, OperationNotAllowedException {
+        erholungDTO.setId(null);
+        eRequiredAttributesCheck(erholungDTO);
+        Erholung erholung = erholungMapper.toErholung(erholungDTO);
         User user = new User();
         user.setUsername(authentication.getName());
         erholung.setUser(user);
@@ -130,23 +132,23 @@ public class ErholungService implements IErholungService {
     }
 
 
-    private void eRequiredAttributesCheck(Erholung erholung) throws OperationNotAllowedException{
-        if(erholung == null)
+    private void eRequiredAttributesCheck(ErholungDTO erholungDTO) throws OperationNotAllowedException{
+        if(erholungDTO == null)
         {
             throw new OperationNotAllowedException("Erholung is Required");
         }
 
-        if (    erholung.getName() == null
-               || erholung.getName().isEmpty()
+        if (    erholungDTO.getName() == null
+               || erholungDTO.getName().isEmpty()
         ){
         throw new OperationNotAllowedException("Name is Required");
         }
-        if (    erholung.getBeschreibung() == null
-               || erholung.getBeschreibung().isEmpty()
+        if (    erholungDTO.getBeschreibung() == null
+               || erholungDTO.getBeschreibung().isEmpty()
         ){
             throw new OperationNotAllowedException("Beschreibung is Required");
         }
-        if (    erholung.getPictureUrls() == null
+        if (    erholungDTO.getPictureUrls() == null
         ){
             throw new OperationNotAllowedException("PictureUrl is Required");
         }

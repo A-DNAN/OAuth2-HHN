@@ -25,7 +25,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  * @author ADNAN <ADNAN.E@TUTANOTA.DE>
@@ -44,10 +43,10 @@ public interface IErholungService {
 
     /**
      *
-     * @param erholung
+     * @param erholungDTO
      * @throws SQLException
      */
-    public void save(Erholung erholung, Authentication authentication) throws SQLException, OperationNotAllowedException;
+    public void save(ErholungDTO erholungDTO, Authentication authentication) throws SQLException, OperationNotAllowedException;
 
     /**
      *

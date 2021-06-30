@@ -33,9 +33,10 @@ public class UserDTO implements Serializable {
     private String lastname;
     private String middle_name;
     private String pictureUrl;
-    private UProfile.Gender gender;
+    private String gender;
     private String birthdate;
     private String email;
+    private String phone_number;
     //Address
     private String street;
     private String town;
@@ -84,11 +85,11 @@ public class UserDTO implements Serializable {
         this.pictureUrl = pictureUrl;
     }
 
-    public UProfile.Gender getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(UProfile.Gender gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
@@ -138,5 +139,13 @@ public class UserDTO implements Serializable {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getPhone_number() {
+        return phone_number;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
     }
 }
